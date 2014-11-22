@@ -1,4 +1,6 @@
 skelly
 ======
 
-An AngularJS HTML5 game demo built on the Play framework and Scala
+An HTML5 game demo based on the skelly game built on the Play framework and Scala.
+
+

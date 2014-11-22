@@ -1,0 +1,19 @@
+/* Skelly Game Demo */
+
+body{
+	background: #000;	
+}
+
+#game-wrapper {
+	background: #5e87d1;
+	width: 1000px;
+	height: 600px;
+	margin: 150px auto 0 auto;
+}
+
+#game-canvas {
+	background: none;
+	width: 1000px;
+	height: 600px;
+	margin: 0 auto;
+}
