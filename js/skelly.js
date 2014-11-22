@@ -9,9 +9,9 @@
 (function(){
 	
 	var config = {
-			width: "1000px",
-			height: "600px",
-			background: "#d4dbfa"
+	    width: "1000px",
+	    height: "600px",
+	    background: "#d4dbfa"
 	}
 	
 	initCanvasBG(config);
