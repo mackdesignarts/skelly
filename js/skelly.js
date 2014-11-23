@@ -1,28 +1,26 @@
 /****************
  *  
- *  Skelly Game Demo 
+ *  Skelly Octagon Game Demo 
  *  by Tony McLaughlin
  *  
  ****************/
 
 
 (function(){
-	
-	var config = {
-	    width: "1000px",
-	    height: "600px",
-	    background: "#d4dbfa"
-	}
-	
-	initCanvasBG(config);
-		
-	// instantiate new game engine object
-	var Q = Quintus()
-		.include('Sprites', 'Scenes', 'Input')
-		.setup('game-canvas', {
-			width: 1000,
-			height: 600
-		});
+			
+    var tableWidth = 1554,
+        tableHeight = 668;
+
+    // game engine object and modules
+    var Q = window.Q = Quintus()
+        .include("Sprites, Scenes, Input, 2D, Touch")
+        .setup({
+            width: tableWidth,
+            height: tableHeight,
+        })
+        .controls();
+
+    Q.touch(Q.SPRITE_ALL);
 	
 	Q.options = {
 	    imagePath: "img/",
@@ -60,35 +58,55 @@
 	
 	Q.Sprite.extend('Defender', {
 		init: function(p) {
-			this._super(p, {
-				x: 50,
-				y: 50,
-				w: 100,
-				h: 100,
-				speed: 10
-			})
-		}
+		    this._super(p, {
+		        x: 35,
+		        y: 35,
+		        w: 70,
+		        h: 70,
+		        speed: 10
+
+		    });
+
+            // drag and release events
+		    this.on("drag");
+		    this.on("touchEnd");
+		    
+		},
+
+		drag: function (touch) {
+		    console.log("draggng");
+		    this.p.dragging = true;
+		    this.p.x = touch.origX + touch.dx;
+		    this.p.y = touch.origY + touch.dy;
+		},
+
+	    touchEnd: function(touch) {
+	        this.p.dragging = false;
+	    }
+
 	});
 	
-	// asset loader and game loop
-	Q.load(["game_surface.png", "disc_blue.png", "disc_red.png"], function(){
+    // asset loader and game loop
+	var assets = [
+        "game_surface.png",
+        "disc_blue_70px.png",
+        "disc_red_70px.png",
+        "disc_blue_100px.png",
+        "disc_red_100px.png",
+        "disc_blue_50px.png",
+        "disc_red_50px.png"
+	];
+
+	Q.load(assets, function () {
 			
 		var background = new Q.Sprite({
 			asset: "game_surface.png",
-			x: Q.el.width / 2,
-			y: Q.el.height / 2,
-			type: Q.SPRITE_NONE
+			x: tableWidth / 2,
+			y: tableHeight / 2
 		})
 		
-		/* instantiate 2 sets of player objects for each team ->
-		 * 
-		 * 2 Gliders
-		 * 4 Strikers
-		 * 3 Defenders
-		 * 1 Goal
-		 * 
-		 */
-		
+		/* instantiate 2 sets of player objects for each team -> 2 Gliders, 4 Strikers, 3 Defenders, 1 Goal */
+		 
 		var player1 = {
 			glider: [],
 			striker: [],
@@ -104,7 +122,7 @@
 		}
 						
 		player1.defender[0] = new Q.Defender({
-			asset: "disc_blue.png"
+			asset: "disc_blue_70px.png"
 		});
 		
 		// ** GAME LOOP **
@@ -118,21 +136,5 @@
 		})
 
 	});
-	
-	// configure HTML wrapper
-	function initCanvasBG(config){
-		$("#game-wrapper").css({
-			width: config.width,
-			height: config.height,
-			background: config.background
-		});
-		$("#game-canvas").css({
-			width: config.width,
-			height: config.height
-		});	
-	}
-	
-	
-	
 	
 })()

@@ -1,11 +1,12 @@
 /* Skelly Game Demo */
 
 body{
-	background: #000;	
+	background: #1e335c;	
+    padding-top: 100px;
 }
 
 #game-wrapper {
-	background: #5e87d1;
+	background: #d4dbfa;
 	width: 1000px;
 	height: 600px;
 	margin: 150px auto 0 auto;
